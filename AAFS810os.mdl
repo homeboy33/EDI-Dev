@@ -1,0 +1,1922 @@
+;;; (locale=English_United States.Cp1252@Binary)
+;;; (IDOC810os.mdl)
+;;; (version = 4.1)
+;;; (type = SOURCE)
+;;; (access = OTFixed.acc)
+;;; Modified: Sun Sep 19 23:03:45 EDT 2004
+;;;     by user: geoff
+;;; OmniTrans(tm) Interchange Format.
+;;; (c) Copyright 1996-2000
+;;;    RMS Electronic Commerce Systems, Inc.
+;;; WorkBench 4.0 checksum = 375432131
+;;; 
+
+DECLARATIONS {
+INCLUDE "user.inc"
+}
+
+Initialization { 
+	[]
+	;;
+        VAR->SAPEDI40 = "Yes"
+        VAR->Global10 = "Y"
+	SET_FIRST_DELIM(13)
+	;;
+	VAR->CTT01 = 0
+	VAR->TDS01 = 0
+	VAR->TDS02 = 0
+
+	;;
+	[]
+	VAR->SourceStatus = 1
+
+	;;
+	;;
+}*0 .. 1 ;; |-- end Initialization --|
+
+
+Document_Loop { 
+EDI_DC40 { LineFeedDelimRecord  "EDI_DC40  "
+MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end MANDT --|
+DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end DOCNUM --|
+DOCREL { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end DOCREL --|
+STATUS { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end STATUS --|
+DIRECT { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end DIRECT --|
+OUTMOD { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end OUTMOD --|
+EXPRSS { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end EXPRSS --|
+TEST { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end TEST --|
+IDOCTYP { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end IDOCTYP --|
+CIMTYP { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end CIMTYP --|
+MESTYP { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end MESTYP --|
+MESCOD { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end MESCOD --|
+MESFCT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end MESFCT --|
+STD { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end STD --|
+STDVRS { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end STDVRS --|
+STDMES { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end STDMES --|
+SNDPOR { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end SNDPOR --|
+SNDPRT { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end SNDPRT --|
+SNDPFC { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end SNDPFC --|
+SNDPRN { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end SNDPRN --|
+SNDSAD { AlphaNumericFld @1 .. 21  none 
+}*0 .. 1 ;; |-- end SNDSAD --|
+SNDLAD { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end SNDLAD --|
+RCVPOR { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end RCVPOR --|
+RCVPRT { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end RCVPRT --|
+RCVPFC { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end RCVPFC --|
+RCVPRN { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end RCVPRN --|
+RCVSAD { AlphaNumericFld @1 .. 21  none 
+}*0 .. 1 ;; |-- end RCVSAD --|
+RCVLAD { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end RCVLAD --|
+CREDAT { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end CREDAT --|
+CRETIM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end CRETIM --|
+REFINT { AlphaNumericFld @1 .. 14  none 
+}*0 .. 1 ;; |-- end REFINT --|
+REFGRP { AlphaNumericFld @1 .. 14  none 
+}*0 .. 1 ;; |-- end REFGRP --|
+REFMES { AlphaNumericFld @1 .. 14  none 
+}*0 .. 1 ;; |-- end REFMES --|
+ARCKEY { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end ARCKEY --|
+SERIAL { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end SERIAL --|
+
+[]
+PERFORM ("SPStatusSetup", &DOCNUM, &STATUS, &IDOCTYP, &MANDT)
+
+	;;
+	;; DEBUG PURPOSES!!!
+	;;
+	[]
+	;; SEND_SMSG(1,"#+")
+	;; SEND_SMSG(1,STRCATM(5,"PROCESSING ",STRCAT(STRTRIM(RCVPRN,"T"," "),STRCAT("~",STRTRIM(STDMES,"T"," ")))," ","IDOC# ",DOCNUM))
+
+
+	;;
+	;;***********************************
+	;; RETRIEVE THE APPLICATION ID
+	;;***********************************
+	;;
+	[]
+	SET_EVAR("XREF_KEY","ENTITY") 
+
+	VAR->OTRecognID= STRCAT(STRTRIM(RCVPRN,"T"," "),STRCAT("~",STRTRIM(STDMES,"T"," "))) 
+
+	VAR->XRefSts   = XREF( "ENTITY" , VAR->OTRecognID , &VAR->OTHierarchyID , "Y" ) 
+
+	SET_EVAR("HIERARCHY_KEY",STRSUBS(VAR->OTHierarchyID,01,16)) 
+
+	;;
+	;;****************************************
+	;; APPLICATION X-REFERENCE DOENS'T EXISTS
+	;;****************************************
+	;;
+	[VAR->XRefSts != 0 ] EXIT 501 
+	;;
+	;;
+}*1 .. 1 ;; |-- end EDI_DC40 --|
+
+
+
+E2EDK01005 { LineFeedDelimRecord  "E2EDK01005                    "
+E2EDK01005_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK01005_MANDT --|
+E2EDK01005_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK01005_DOCNUM --|
+E2EDK01005_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK01005_SEGNUM --|
+E2EDK01005_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK01005_PSGNUM --|
+E2EDK01005_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK01005_HLEVEL --|
+E2EDK01005_ACTION { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK01005_ACTION --|
+E2EDK01005_KZABS { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK01005_KZABS --|
+E2EDK01005_CURCY { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK01005_CURCY --|
+E2EDK01005_HWAER { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK01005_HWAER --|
+E2EDK01005_WKURS { AlphaNumericFld @1 .. 12  none 
+}*0 .. 1 ;; |-- end E2EDK01005_WKURS --|
+E2EDK01005_ZTERM { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDK01005_ZTERM --|
+E2EDK01005_KUNDEUINR { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDK01005_KUNDEUINR --|
+E2EDK01005_EIGENUINR { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDK01005_EIGENUINR --|
+E2EDK01005_BSART { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDK01005_BSART --|
+E2EDK01005_BELNR { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDK01005_BELNR --|
+E2EDK01005_NTGEW { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDK01005_NTGEW --|
+E2EDK01005_BRGEW { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDK01005_BRGEW --|
+E2EDK01005_GEWEI { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK01005_GEWEI --|
+E2EDK01005_FKART_RL { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDK01005_FKART_RL --|
+E2EDK01005_ABLAD { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDK01005_ABLAD --|
+E2EDK01005_BSTZD { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDK01005_BSTZD --|
+E2EDK01005_VSART { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK01005_VSART --|
+E2EDK01005_VSART_BEZ { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDK01005_VSART_BEZ --|
+E2EDK01005_RECIPNT_NO { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end E2EDK01005_RECIPNT_NO --|
+E2EDK01005_KZAZU { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK01005_KZAZU --|
+E2EDK01005_AUTLF { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK01005_AUTLF --|
+E2EDK01005_AUGRU { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK01005_AUGRU --|
+E2EDK01005_AUGRU_BEZ { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDK01005_AUGRU_BEZ --|
+E2EDK01005_ABRVW { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK01005_ABRVW --|
+E2EDK01005_ABRVW_BEZ { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDK01005_ABRVW_BEZ --|
+E2EDK01005_FKTYP { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK01005_FKTYP --|
+E2EDK01005_LIFSK { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK01005_LIFSK --|
+E2EDK01005_LIFSK_BEZ { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDK01005_LIFSK_BEZ --|
+E2EDK01005_EMPST { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDK01005_EMPST --|
+E2EDK01005_ABTNR { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDK01005_ABTNR --|
+E2EDK01005_DELCO { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK01005_DELCO --|
+E2EDK01005_WKURS_M { AlphaNumericFld @1 .. 12  none 
+}*0 .. 1 ;; |-- end E2EDK01005_WKURS_M --|
+E2EDK01005_FILLER { AlphaNumericFld @1 .. 643  none 
+}*0 .. 1 ;; |-- end E2EDK01005_FILLER --|
+
+
+	;;
+	;;************************
+	;; A/R TERM(s)
+	;;************************
+	;;
+	[]
+	VAR->ITD12 = STRTRIM(E2EDK01005_ZTERM, "B", " ")
+
+	;;******************************
+	;; ERROR CHECK - CANCEL INVOICE
+	;;******************************
+	[E2EDK01005_BSART == "CRME"]	VAR->SourceStatus = 0
+		SEND_SMSG(1,STRCATM(2,"ERROR: ","CANCEL INVOICE"))
+
+	;;
+	;;
+}*1 .. 1 ;; |-- end E2EDK01005 --|
+
+
+
+
+ZE1EDK01000 { LineFeedDelimRecord "ZE1EDK01000                   "
+ZE1EDK01000_MANDT { AlphaNumericFld @3 .. 3 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_MANDT --|
+ZE1EDK01000_DOCNUM { AlphaNumericFld @16 .. 16 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_DOCNUM --|
+ZE1EDK01000_SEGNUM { NumericFld @6 .. 6 "999999" none 
+}*1 .. 1   ;; |-- end ZE1EDK01000_SEGNUM --|
+ZE1EDK01000_PSGNUM { NumericFld @6 .. 6 "999999" none 
+}*1 .. 1   ;; |-- end ZE1EDK01000_PSGNUM --|
+ZE1EDK01000_HLEVEL { NumericFld @2 .. 2 "99" none 
+}*1 .. 1   ;; |-- end ZE1EDK01000_HLEVEL --|
+ZE1EDK01000_ZZRF01 { AlphaNumericFld @30 .. 30 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_ZZRF01 --|
+ZE1EDK01000_ZZRF02 { AlphaNumericFld @30 .. 30 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_ZZRF02 --|
+ZE1EDK01000_ZZRF03 { AlphaNumericFld @30 .. 30 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_ZZRF03 --|
+ZE1EDK01000_ZZRF04 { AlphaNumericFld @30 .. 30 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_ZZRF04 --|
+ZE1EDK01000_ZZRF05 { AlphaNumericFld @30 .. 30 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_ZZRF05 --|
+ZE1EDK01000_ZZRF06 { AlphaNumericFld @30 .. 30 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_ZZRF06 --|
+ZE1EDK01000_ZZRF07 { AlphaNumericFld @30 .. 30 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_ZZRF07 --|
+ZE1EDK01000_ZZRF08 { AlphaNumericFld @30 .. 30 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_ZZRF08 --|
+ZE1EDK01000_ZZRF09 { AlphaNumericFld @30 .. 30 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_ZZRF09 --|
+ZE1EDK01000_ZZRF10 { AlphaNumericFld @30 .. 30 none
+}*1 .. 1   ;; |-- end ZE1EDK01000_ZZRF10 --|
+ZE1EDK01000_FILLER { AlphaNumericFld @1 .. 700 none
+}*0 .. 1   ;; |-- end ZE1EDK01000_FILLER --|
+
+	;;
+	[]
+	VAR->ITD01   = STRSUBS(ZE1EDK01000_ZZRF09,16,STRPOS(ZE1EDK01000_ZZRF09," ",16))
+	VAR->ITD02   = STRSUBS(ZE1EDK01000_ZZRF10,16,STRPOS(ZE1EDK01000_ZZRF10," ",16))
+
+	;;
+	[]
+	VAR->VENDOR  = STRSUBS(ZE1EDK01000_ZZRF01,16,STRPOS(ZE1EDK01000_ZZRF01," ",16))
+
+	;;
+	;;*****************************
+	;; DEFAULT VALUES
+	;;*****************************
+	;;
+	[STRTRIM(VAR->ITD01 ,"B"," ") == ""] VAR->ITD01  = "01"
+	[STRTRIM(VAR->ITD02 ,"B"," ") == ""] VAR->ITD02  = "2 "
+
+	;;
+	;;
+}*0 .. 1   ;; |-- end ZE1EDK01000 --|
+
+
+
+E2EDKA1003 { LineFeedDelimRecord  "E2EDKA1003                    "
+E2EDKA1003_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_MANDT --|
+E2EDKA1003_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_DOCNUM --|
+E2EDKA1003_SEGNUM { AlphaNumericFld @1 .. 6  none 
+	;;
+	[]
+	VAR->SEGNUM = E2EDKA1003_SEGNUM
+	;;
+	;;
+}*0 .. 1 ;; |-- end E2EDKA1003_SEGNUM --|
+E2EDKA1003_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PSGNUM --|
+E2EDKA1003_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_HLEVEL --|
+E2EDKA1003_PARVW { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PARVW --|
+E2EDKA1003_PARTN { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PARTN --|
+E2EDKA1003_LIFNR { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_LIFNR --|
+E2EDKA1003_NAME1 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_NAME1 --|
+E2EDKA1003_NAME2 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_NAME2 --|
+E2EDKA1003_NAME3 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_NAME3 --|
+E2EDKA1003_NAME4 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_NAME4 --|
+E2EDKA1003_STRAS { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_STRAS --|
+E2EDKA1003_STRS2 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_STRS2 --|
+E2EDKA1003_PFACH { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PFACH --|
+E2EDKA1003_ORT01 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_ORT01 --|
+E2EDKA1003_COUNC { AlphaNumericFld @1 .. 9  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_COUNC --|
+E2EDKA1003_PSTLZ { AlphaNumericFld @1 .. 9  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PSTLZ --|
+E2EDKA1003_PSTL2 { AlphaNumericFld @1 .. 9  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PSTL2 --|
+E2EDKA1003_LAND1 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_LAND1 --|
+E2EDKA1003_ABLAD { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_ABLAD --|
+E2EDKA1003_PERNR { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PERNR --|
+E2EDKA1003_PARNR { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PARNR --|
+E2EDKA1003_TELF1 { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_TELF1 --|
+E2EDKA1003_TELF2 { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_TELF2 --|
+E2EDKA1003_TELBX { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_TELBX --|
+E2EDKA1003_TELFX { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_TELFX --|
+E2EDKA1003_TELTX { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_TELTX --|
+E2EDKA1003_TELX1 { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_TELX1 --|
+E2EDKA1003_SPRAS { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_SPRAS --|
+E2EDKA1003_ANRED { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_ANRED --|
+E2EDKA1003_ORT02 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_ORT02 --|
+E2EDKA1003_HAUSN { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_HAUSN --|
+E2EDKA1003_STOCK { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_STOCK --|
+E2EDKA1003_REGIO { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_REGIO --|
+E2EDKA1003_PARGE { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PARGE --|
+E2EDKA1003_ISOAL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_ISOAL --|
+E2EDKA1003_ISONU { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_ISONU --|
+E2EDKA1003_FCODE { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_FCODE --|
+E2EDKA1003_IHREZ { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_IHREZ --|
+E2EDKA1003_BNAME { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_BNAME --|
+E2EDKA1003_PAORG { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PAORG --|
+E2EDKA1003_ORGTX { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_ORGTX --|
+E2EDKA1003_PAGRU { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PAGRU --|
+E2EDKA1003_KNREF { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_KNREF --|
+E2EDKA1003_ILNNR { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_ILNNR --|
+E2EDKA1003_PFORT { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_PFORT --|
+E2EDKA1003_SPRAS_ISO { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_SPRAS_ISO --|
+E2EDKA1003_TITLE { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_TITLE --|
+E2EDKA1003_FILLER { AlphaNumericFld @1 .. 5  none 
+}*0 .. 1 ;; |-- end E2EDKA1003_FILLER --|
+
+
+
+	;;
+	;;*************************
+	;; REMIT
+	;;*************************
+	;;
+	[E2EDKA1003_PARVW == "BK "]					;COMPANY/SUPPLIER
+	;;
+	 ARRAY->N100 = "Data"
+
+	 ARRAY->N101 = "RI"						;hardcode!?
+;;	 ARRAY->N102 = STRTRIM(E2EDKA1003_NAME1,"B"," ")
+	 ARRAY->N102 = "  "
+	 ARRAY->N103 = "1 "						;hardcode!?
+	 ARRAY->N104 = $xREF_RefA
+
+;;	 ARRAY->N201 = STRTRIM(E2EDKA1003_NAME2,"B"," ")
+;;	 ARRAY->N202 = STRTRIM(E2EDKA1003_NAME3,"B"," ")  
+
+;;	 ARRAY->N301 = STRTRIM(E2EDKA1003_STRAS,"B"," ")  
+;;	 ARRAY->N302 = STRTRIM(E2EDKA1003_STRS2,"B"," ")  
+
+;;	 ARRAY->N401 = STRTRIM(E2EDKA1003_ORT01,"B"," ")  
+;;	 ARRAY->N402 = STRTRIM(E2EDKA1003_REGIO,"B"," ")  
+;;	 ARRAY->N403 = STRTRIM(E2EDKA1003_PSTLZ,"B"," ")  
+;;	 ARRAY->N404 = STRTRIM(E2EDKA1003_LAND1,"B"," ")  
+
+	 ARRAY->N201 = ""
+	 ARRAY->N202 = ""
+
+	 ARRAY->N301 = ""
+	 ARRAY->N302 = ""
+
+	 ARRAY->N401 = ""
+	 ARRAY->N402 = ""
+	 ARRAY->N403 = ""
+	 ARRAY->N404 = ""
+
+	;;
+	;;*************************
+	;; SHIP-TO
+	;;************************* 
+	;;
+	[E2EDKA1003_PARVW == "WE "]					;SHIP-TO
+	;;
+ 	 ARRAY->N100 = "Data"
+
+	 ARRAY->N101 = "ST"						;hardcode!?
+	 ARRAY->N102 = "  "
+	 ARRAY->N103 = "92"						;hardcode!?
+	 ARRAY->N104 = STRTRIM(E2EDKA1003_NAME4,"B"," ")
+
+	 ARRAY->N201 = ""
+	 ARRAY->N202 = ""
+
+	 ARRAY->N301 = ""
+	 ARRAY->N302 = ""
+
+	 ARRAY->N401 = ""
+	 ARRAY->N402 = ""
+	 ARRAY->N403 = ""
+	 ARRAY->N404 = ""
+
+
+	[E2EDKA1003_PARVW == "AG "]					;SOLD-TO
+	[E2EDKA1003_PARVW == "RE "]					;BILL-TO
+	[E2EDKA1003_PARVW == "ZC "]					;CARRIER CODE
+
+	;;
+	;;*************************
+	;; ERROR CHECK!!!
+	;;*************************
+	;;
+	[E2EDKA1003_PARVW == "WE " && STRTRIM(E2EDKA1003_NAME4,"B"," ") == ""] VAR->SourceStatus = 0
+		;;
+		;;
+		SEND_SMSG(1,STRCATM(3,"ERROR!@ SEG.No ",VAR->SEGNUM," NAME4=*BLANK"))
+		;;
+		;;
+
+
+	;;
+	;;
+}*0 .. 99 ;; |-- end E2EDKA1003 --|
+
+
+E2EDK02 { LineFeedDelimRecord  "E2EDK02                       "
+E2EDK02_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK02_MANDT --|
+E2EDK02_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK02_DOCNUM --|
+E2EDK02_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK02_SEGNUM --|
+E2EDK02_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK02_PSGNUM --|
+E2EDK02_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK02_HLEVEL --|
+E2EDK02_QUALF { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK02_QUALF --|
+E2EDK02_BELNR { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDK02_BELNR --|
+E2EDK02_POSNR { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK02_POSNR --|
+E2EDK02_DATUM { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDK02_DATUM --|
+E2EDK02_UZEIT { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK02_UZEIT --|
+E2EDK02_FILLER { AlphaNumericFld @1 .. 942  none 
+}*0 .. 1 ;; |-- end E2EDK02_FILLER --|
+
+	;;
+	;;*************************
+	;; INVOICE
+	;;*************************
+	;;
+	[E2EDK02_QUALF == "009"]					;INVOICE NUMBER 
+	;;
+
+	VAR->ITD04 = STRTRIM(E2EDK02_DATUM,"B"," ")
+
+	VAR->BIG01 = STRTRIM(E2EDK02_DATUM,"B"," ")
+	VAR->BIG02 = STRSUBS(E2EDK02_BELNR, 3 ,10 )
+
+
+	;;
+	;;*************************
+	;; PURCHASE
+	;;*************************
+	;;
+	[E2EDK02_QUALF == "001"]					;PURCHASE ORDER
+	;;
+
+	VAR->BIG03 = STRTRIM(E2EDK02_DATUM, "B", " ")
+	VAR->BIG04 = STRTRIM(E2EDK02_BELNR, "B", " ")
+
+
+	;;
+	;;*************************
+	;; DELIVERY
+	;;*************************
+	;;
+	[E2EDK02_QUALF == "012"]					;DELIVERY NOTE#
+	;;
+
+
+	;;
+	;;
+}*0 .. 20 ;; |-- end E2EDK02 --|
+
+
+
+E2EDK03 { LineFeedDelimRecord  "E2EDK03                       "
+E2EDK03_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK03_MANDT --|
+E2EDK03_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK03_DOCNUM --|
+E2EDK03_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK03_SEGNUM --|
+E2EDK03_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK03_PSGNUM --|
+E2EDK03_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK03_HLEVEL --|
+E2EDK03_IDDAT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK03_IDDAT --|
+E2EDK03_DATUM { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDK03_DATUM --|
+E2EDK03_UZEIT { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK03_UZEIT --|
+E2EDK03_FILLER { AlphaNumericFld @1 .. 983  none 
+}*0 .. 1 ;; |-- end E2EDK03_FILLER --|
+
+	;;
+	;;*************************
+	;; DELIVERY
+	;;*************************
+	;;
+	[E2EDK03_IDDAT == "001"]					;DELIVERY DATE
+	
+	ARRAY->DTM00 = "Data"
+
+	ARRAY->DTM01 = "011"						;hardcode!?
+	ARRAY->DTM02 = E2EDK03_DATUM 
+
+	;;
+	;;*************************
+	;; DUE DATE
+	;;*************************
+	;;
+	[E2EDK03_IDDAT == "028"]					;DUE DATE
+	;;	
+	VAR->ITD06 = E2EDK03_DATUM 
+
+	;;
+	;;
+}*0 .. 20 ;; |-- end E2EDK03 --|
+
+
+E2EDK05001 { LineFeedDelimRecord  "E2EDK05001                    "
+E2EDK05001_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK05001_MANDT --|
+E2EDK05001_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK05001_DOCNUM --|
+E2EDK05001_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK05001_SEGNUM --|
+E2EDK05001_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK05001_PSGNUM --|
+E2EDK05001_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK05001_HLEVEL --|
+E2EDK05001_ALCKZ { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK05001_ALCKZ --|
+E2EDK05001_KSCHL { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDK05001_KSCHL --|
+E2EDK05001_KOTXT { AlphaNumericFld @1 .. 80  none 
+}*0 .. 1 ;; |-- end E2EDK05001_KOTXT --|
+E2EDK05001_BETRG { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDK05001_BETRG --|
+E2EDK05001_KPERC { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDK05001_KPERC --|
+E2EDK05001_KRATE { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDK05001_KRATE --|
+E2EDK05001_UPRBS { AlphaNumericFld @1 .. 9  none 
+}*0 .. 1 ;; |-- end E2EDK05001_UPRBS --|
+E2EDK05001_MEAUN { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK05001_MEAUN --|
+E2EDK05001_KOBTR { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDK05001_KOBTR --|
+E2EDK05001_MWSKZ { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDK05001_MWSKZ --|
+E2EDK05001_MSATZ { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDK05001_MSATZ --|
+E2EDK05001_KOEIN { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK05001_KOEIN --|
+E2EDK05001_FILLER { AlphaNumericFld @1 .. 815  none 
+}*0 .. 1 ;; |-- end E2EDK05001_FILLER --|
+}*0 .. 99 ;; |-- end E2EDK05001 --|
+E2EDK04001 { LineFeedDelimRecord  "E2EDK04001                    "
+E2EDK04001_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK04001_MANDT --|
+E2EDK04001_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK04001_DOCNUM --|
+E2EDK04001_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK04001_SEGNUM --|
+E2EDK04001_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK04001_PSGNUM --|
+E2EDK04001_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK04001_HLEVEL --|
+E2EDK04001_MWSKZ { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDK04001_MWSKZ --|
+E2EDK04001_MSATZ { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDK04001_MSATZ --|
+E2EDK04001_MWSBT { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDK04001_MWSBT --|
+E2EDK04001_TXJCD { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDK04001_TXJCD --|
+E2EDK04001_KTEXT { AlphaNumericFld @1 .. 50  none 
+}*0 .. 1 ;; |-- end E2EDK04001_KTEXT --|
+E2EDK04001_FILLER { AlphaNumericFld @1 .. 893  none 
+}*0 .. 1 ;; |-- end E2EDK04001_FILLER --|
+}*0 .. 25 ;; |-- end E2EDK04001 --|
+
+
+E2EDK17 { LineFeedDelimRecord  "E2EDK17                       "
+E2EDK17_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK17_MANDT --|
+E2EDK17_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK17_DOCNUM --|
+E2EDK17_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK17_SEGNUM --|
+E2EDK17_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK17_PSGNUM --|
+E2EDK17_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK17_HLEVEL --|
+E2EDK17_QUALF { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK17_QUALF --|
+E2EDK17_LKOND { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK17_LKOND --|
+E2EDK17_LKTEXT { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end E2EDK17_LKTEXT --|
+E2EDK17_FILLER { AlphaNumericFld @1 .. 924  none 
+}*0 .. 1 ;; |-- end E2EDK17_FILLER --|
+}*0 .. 10 ;; |-- end E2EDK17 --|
+
+
+E2EDK18 { LineFeedDelimRecord  "E2EDK18                       "
+E2EDK18_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK18_MANDT --|
+E2EDK18_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK18_DOCNUM --|
+E2EDK18_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK18_SEGNUM --|
+E2EDK18_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK18_PSGNUM --|
+E2EDK18_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK18_HLEVEL --|
+E2EDK18_QUALF { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK18_QUALF --|
+E2EDK18_TAGE { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDK18_TAGE --|
+E2EDK18_PRZNT { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDK18_PRZNT --|
+E2EDK18_ZTERM_TXT { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end E2EDK18_ZTERM_TXT --|
+E2EDK18_FILLER { AlphaNumericFld @1 .. 911  none 
+}*0 .. 1 ;; |-- end E2EDK18_FILLER --|
+
+	;;
+	;;**********************
+	;; A/R TERM(s)
+	;;**********************
+	;;
+	[E2EDK18_QUALF == "001"]
+	;;
+
+	VAR->ITD03 = STRTRIM(E2EDK18_PRZNT    ,"B"," ")
+	VAR->ITD05 = STRTRIM(E2EDK18_TAGE     ,"B"," ")
+	VAR->ITD07 = ""
+	VAR->ITD12 = STRTRIM(E2EDK18_ZTERM_TXT,"B"," ")
+
+
+	[E2EDK18_QUALF == "002"]
+
+	VAR->ITD07 = STRTRIM(E2EDK18_TAGE     ,"B"," ")
+
+	VAR->ITD04 = DATE_CALC(VAR->ITD06,-1)
+
+	;;
+	;;
+}*0 .. 10 ;; |-- end E2EDK18 --|
+
+
+E2EDK23001 { LineFeedDelimRecord  "E2EDK23001                    "
+E2EDK23001_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK23001_MANDT --|
+E2EDK23001_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK23001_DOCNUM --|
+E2EDK23001_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK23001_SEGNUM --|
+E2EDK23001_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK23001_PSGNUM --|
+E2EDK23001_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK23001_HLEVEL --|
+E2EDK23001_QUALF { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK23001_QUALF --|
+E2EDK23001_WAERZ { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK23001_WAERZ --|
+E2EDK23001_WAERQ { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK23001_WAERQ --|
+E2EDK23001_KURS { AlphaNumericFld @1 .. 12  none 
+}*0 .. 1 ;; |-- end E2EDK23001_KURS --|
+E2EDK23001_DATUM { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDK23001_DATUM --|
+E2EDK23001_ZEIT { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK23001_ZEIT --|
+E2EDK23001_KURS_M { AlphaNumericFld @1 .. 12  none 
+}*0 .. 1 ;; |-- end E2EDK23001_KURS_M --|
+E2EDK23001_FILLER { AlphaNumericFld @1 .. 953  none 
+}*0 .. 1 ;; |-- end E2EDK23001_FILLER --|
+}*0 .. 4 ;; |-- end E2EDK23001 --|
+E2EDK28 { LineFeedDelimRecord  "E2EDK28                       "
+E2EDK28_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK28_MANDT --|
+E2EDK28_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK28_DOCNUM --|
+E2EDK28_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK28_SEGNUM --|
+E2EDK28_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK28_PSGNUM --|
+E2EDK28_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK28_HLEVEL --|
+E2EDK28_BCOUN { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK28_BCOUN --|
+E2EDK28_BRNUM { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDK28_BRNUM --|
+E2EDK28_BNAME { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end E2EDK28_BNAME --|
+E2EDK28_BALOC { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end E2EDK28_BALOC --|
+E2EDK28_ACNUM { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDK28_ACNUM --|
+E2EDK28_ACNAM { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDK28_ACNAM --|
+E2EDK28_FILLER { AlphaNumericFld @1 .. 775  none 
+}*0 .. 1 ;; |-- end E2EDK28_FILLER --|
+}*0 .. 20 ;; |-- end E2EDK28 --|
+E2EDK29003 { LineFeedDelimRecord  "E2EDK29003                    "
+E2EDK29003_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_MANDT --|
+E2EDK29003_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK29003_DOCNUM --|
+E2EDK29003_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_SEGNUM --|
+E2EDK29003_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_PSGNUM --|
+E2EDK29003_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK29003_HLEVEL --|
+E2EDK29003_EXNUM { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end E2EDK29003_EXNUM --|
+E2EDK29003_ALAND { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ALAND --|
+E2EDK29003_EXPVZ { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK29003_EXPVZ --|
+E2EDK29003_ZOLLA { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ZOLLA --|
+E2EDK29003_ZOLLB { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ZOLLB --|
+E2EDK29003_ZOLL1 { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ZOLL1 --|
+E2EDK29003_ZOLL2 { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ZOLL2 --|
+E2EDK29003_ZOLL3 { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ZOLL3 --|
+E2EDK29003_ZOLL4 { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ZOLL4 --|
+E2EDK29003_ZOLL5 { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ZOLL5 --|
+E2EDK29003_ZOLL6 { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ZOLL6 --|
+E2EDK29003_KZGBE { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDK29003_KZGBE --|
+E2EDK29003_KZABE { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDK29003_KZABE --|
+E2EDK29003_STGBE { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_STGBE --|
+E2EDK29003_STABE { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_STABE --|
+E2EDK29003_CONTA { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK29003_CONTA --|
+E2EDK29003_GRWCU { AlphaNumericFld @1 .. 5  none 
+}*0 .. 1 ;; |-- end E2EDK29003_GRWCU --|
+E2EDK29003_GRWRT { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDK29003_GRWRT --|
+E2EDK29003_LAND1 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LAND1 --|
+E2EDK29003_LANDX { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LANDX --|
+E2EDK29003_LANDA { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LANDA --|
+E2EDK29003_XEGLD { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK29003_XEGLD --|
+E2EDK29003_FREIH { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK29003_FREIH --|
+E2EDK29003_EWRCO { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK29003_EWRCO --|
+E2EDK29003_USC05 { AlphaNumericFld @1 .. 5  none 
+}*0 .. 1 ;; |-- end E2EDK29003_USC05 --|
+E2EDK29003_JAP05 { AlphaNumericFld @1 .. 5  none 
+}*0 .. 1 ;; |-- end E2EDK29003_JAP05 --|
+E2EDK29003_ALANX { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ALANX --|
+E2EDK29003_ALANA { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ALANA --|
+E2EDK29003_LASTA { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LASTA --|
+E2EDK29003_LASTG { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LASTG --|
+E2EDK29003_ALSCH { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ALSCH --|
+E2EDK29003_ALSRE { AlphaNumericFld @1 .. 5  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ALSRE --|
+E2EDK29003_LADEO { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LADEO --|
+E2EDK29003_IEVER { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK29003_IEVER --|
+E2EDK29003_BANR01 { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BANR01 --|
+E2EDK29003_BANR02 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BANR02 --|
+E2EDK29003_BANR03 { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BANR03 --|
+E2EDK29003_BANR04 { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BANR04 --|
+E2EDK29003_BANR05 { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BANR05 --|
+E2EDK29003_BANR06 { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BANR06 --|
+E2EDK29003_BANR07 { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BANR07 --|
+E2EDK29003_BANR08 { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BANR08 --|
+E2EDK29003_BANR09 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BANR09 --|
+E2EDK29003_BANR10 { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BANR10 --|
+E2EDK29003_WZOCU { AlphaNumericFld @1 .. 5  none 
+}*0 .. 1 ;; |-- end E2EDK29003_WZOCU --|
+E2EDK29003_EXPVZTX { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDK29003_EXPVZTX --|
+E2EDK29003_ZOLLATX { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ZOLLATX --|
+E2EDK29003_ZOLLBTX { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDK29003_ZOLLBTX --|
+E2EDK29003_STGBETX { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDK29003_STGBETX --|
+E2EDK29003_STABETX { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDK29003_STABETX --|
+E2EDK29003_FREIHTX { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDK29003_FREIHTX --|
+E2EDK29003_LADEL { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LADEL --|
+E2EDK29003_TEXT1 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDK29003_TEXT1 --|
+E2EDK29003_TEXT2 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDK29003_TEXT2 --|
+E2EDK29003_TEXT3 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDK29003_TEXT3 --|
+E2EDK29003_GBNUM { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDK29003_GBNUM --|
+E2EDK29003_REGNR { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDK29003_REGNR --|
+E2EDK29003_AUSFU { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end E2EDK29003_AUSFU --|
+E2EDK29003_IEVER_TX { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDK29003_IEVER_TX --|
+E2EDK29003_LAZL1 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LAZL1 --|
+E2EDK29003_LAZL2 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LAZL2 --|
+E2EDK29003_LAZL3 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LAZL3 --|
+E2EDK29003_LAZL4 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LAZL4 --|
+E2EDK29003_LAZL5 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LAZL5 --|
+E2EDK29003_LAZL6 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_LAZL6 --|
+E2EDK29003_AZOLL { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_AZOLL --|
+E2EDK29003_AZOLLTX { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDK29003_AZOLLTX --|
+E2EDK29003_BFMAR { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK29003_BFMAR --|
+E2EDK29003_FTVBD { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK29003_FTVBD --|
+E2EDK29003_CUDCL { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK29003_CUDCL --|
+E2EDK29003_FTUPD { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDK29003_FTUPD --|
+E2EDK29003_FILLER { AlphaNumericFld @1 .. 264  none 
+}*0 .. 1 ;; |-- end E2EDK29003_FILLER --|
+}*0 .. 20 ;; |-- end E2EDK29003 --|
+
+
+GROUP_1 { 
+
+
+E2EDKT1002 { LineFeedDelimRecord  "E2EDKT1002                    "
+E2EDKT1002_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_MANDT --|
+E2EDKT1002_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_DOCNUM --|
+E2EDKT1002_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_SEGNUM --|
+E2EDKT1002_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_PSGNUM --|
+E2EDKT1002_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_HLEVEL --|
+E2EDKT1002_TDID { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_TDID --|
+E2EDKT1002_TSSPRAS { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_TSSPRAS --|
+E2EDKT1002_TSSPRAS_ISO { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_TSSPRAS_ISO --|
+E2EDKT1002_TDOBJECT { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_TDOBJECT --|
+E2EDKT1002_TDOBNAME { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_TDOBNAME --|
+E2EDKT1002_FILLER { AlphaNumericFld @1 .. 911  none 
+}*0 .. 1 ;; |-- end E2EDKT1002_FILLER --|
+}*1 .. 1 ;; |-- end E2EDKT1002 --|
+
+
+E2EDKT2001 { LineFeedDelimRecord  "E2EDKT2001                    "
+E2EDKT2001_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDKT2001_MANDT --|
+E2EDKT2001_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDKT2001_DOCNUM --|
+E2EDKT2001_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDKT2001_SEGNUM --|
+E2EDKT2001_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDKT2001_PSGNUM --|
+E2EDKT2001_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDKT2001_HLEVEL --|
+E2EDKT2001_TDLINE { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end E2EDKT2001_TDLINE --|
+E2EDKT2001_TDFORMAT { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDKT2001_TDFORMAT --|
+E2EDKT2001_FILLER { AlphaNumericFld @1 .. 928  none 
+}*0 .. 1 ;; |-- end E2EDKT2001_FILLER --|
+}*0 .. 999 ;; |-- end E2EDKT2001 --|
+
+
+}*0 .. 99 ;; |-- end GROUP_1 --|
+
+
+E2EDK14 { LineFeedDelimRecord  "E2EDK14                       "
+E2EDK14_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK14_MANDT --|
+E2EDK14_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDK14_DOCNUM --|
+E2EDK14_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK14_SEGNUM --|
+E2EDK14_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDK14_PSGNUM --|
+E2EDK14_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDK14_HLEVEL --|
+E2EDK14_QUALF { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDK14_QUALF --|
+E2EDK14_ORGID { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDK14_ORGID --|
+E2EDK14_FILLER { AlphaNumericFld @1 .. 962  none 
+}*0 .. 1 ;; |-- end E2EDK14_FILLER --|
+}*0 .. 10 ;; |-- end E2EDK14 --|
+
+
+GROUP_2 { 
+
+
+	Group_2INIT {
+	[]
+
+	VAR->IT102 = ""
+	VAR->IT103 = ""
+
+	VAR->IT104 = ""
+
+	VAR->IT106 = ""
+	VAR->IT107 = ""
+
+	VAR->IT108 = ""
+	VAR->IT109 = ""
+
+	VAR->IT110 = ""
+	VAR->IT111 = ""
+
+	VAR->PID01 = ""
+	VAR->PID05 = ""
+
+	VAR->ALCKZ = ""
+
+	}*1 .. 1 ;; |-- end Group_2INIT --|
+
+
+E2EDP01007 { LineFeedDelimRecord  "E2EDP01007                    "
+E2EDP01007_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP01007_MANDT --|
+E2EDP01007_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDP01007_DOCNUM --|
+E2EDP01007_SEGNUM { AlphaNumericFld @1 .. 6  none 
+	;;
+	[]
+	VAR->SEGNUM = E2EDP01007_SEGNUM
+	;;
+	;;
+}*0 .. 1 ;; |-- end E2EDP01007_SEGNUM --|
+E2EDP01007_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP01007_PSGNUM --|
+E2EDP01007_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP01007_HLEVEL --|
+E2EDP01007_POSEX { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP01007_POSEX --|
+E2EDP01007_ACTION { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP01007_ACTION --|
+E2EDP01007_PSTYP { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP01007_PSTYP --|
+E2EDP01007_KZABS { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP01007_KZABS --|
+E2EDP01007_MENGE { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP01007_MENGE --|
+E2EDP01007_MENEE { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP01007_MENEE --|
+E2EDP01007_BMNG2 { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP01007_BMNG2 --|
+E2EDP01007_PMENE { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP01007_PMENE --|
+E2EDP01007_ABFTZ { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDP01007_ABFTZ --|
+E2EDP01007_VPREI { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP01007_VPREI --|
+E2EDP01007_PEINH { AlphaNumericFld @1 .. 9  none 
+}*0 .. 1 ;; |-- end E2EDP01007_PEINH --|
+E2EDP01007_NETWR { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP01007_NETWR --|
+E2EDP01007_ANETW { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP01007_ANETW --|
+E2EDP01007_SKFBP { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP01007_SKFBP --|
+E2EDP01007_NTGEW { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP01007_NTGEW --|
+E2EDP01007_GEWEI { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP01007_GEWEI --|
+E2EDP01007_EINKZ { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP01007_EINKZ --|
+E2EDP01007_CURCY { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP01007_CURCY --|
+E2EDP01007_PREIS { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP01007_PREIS --|
+E2EDP01007_MATKL { AlphaNumericFld @1 .. 9  none 
+}*0 .. 1 ;; |-- end E2EDP01007_MATKL --|
+E2EDP01007_UEPOS { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP01007_UEPOS --|
+E2EDP01007_GRKOR { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP01007_GRKOR --|
+E2EDP01007_EVERS { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDP01007_EVERS --|
+E2EDP01007_BPUMN { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP01007_BPUMN --|
+E2EDP01007_BPUMZ { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP01007_BPUMZ --|
+E2EDP01007_ABGRU { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP01007_ABGRU --|
+E2EDP01007_ABGRT { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP01007_ABGRT --|
+E2EDP01007_ANTLF { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP01007_ANTLF --|
+E2EDP01007_FIXMG { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP01007_FIXMG --|
+E2EDP01007_KZAZU { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP01007_KZAZU --|
+E2EDP01007_BRGEW { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP01007_BRGEW --|
+E2EDP01007_PSTYV { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDP01007_PSTYV --|
+E2EDP01007_EMPST { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDP01007_EMPST --|
+E2EDP01007_ABTNR { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDP01007_ABTNR --|
+E2EDP01007_ABRVW { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP01007_ABRVW --|
+E2EDP01007_WERKS { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDP01007_WERKS --|
+E2EDP01007_LPRIO { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP01007_LPRIO --|
+E2EDP01007_LPRIO_BEZ { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDP01007_LPRIO_BEZ --|
+E2EDP01007_ROUTE { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP01007_ROUTE --|
+E2EDP01007_ROUTE_BEZ { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP01007_ROUTE_BEZ --|
+E2EDP01007_LGORT { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDP01007_LGORT --|
+E2EDP01007_VSTEL { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDP01007_VSTEL --|
+E2EDP01007_DELCO { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP01007_DELCO --|
+E2EDP01007_MATNR { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDP01007_MATNR --|
+E2EDP01007_VALTG { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP01007_VALTG --|
+E2EDP01007_HIPOS { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP01007_HIPOS --|
+E2EDP01007_HIEVW { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP01007_HIEVW --|
+E2EDP01007_POSGUID { AlphaNumericFld @1 .. 22  none 
+}*0 .. 1 ;; |-- end E2EDP01007_POSGUID --|
+E2EDP01007_FILLER { AlphaNumericFld @1 .. 540  none 
+}*0 .. 1 ;; |-- end E2EDP01007_FILLER --|
+
+	;;
+	;;**********************
+	;; QUANTITY and UoM
+	;;**********************
+	;;
+	[]
+	VAR->IT102 = STRTRIM(E2EDP01007_MENGE,"B"," ")
+	VAR->IT103 = STRTRIM(E2EDP01007_MENEE,"B"," ")
+
+	;;
+	;;**********************
+	;; MATERIAL ENTERED
+	;;**********************
+	;;
+	[]
+	VAR->IT110 = "VA"						;hardcode!?
+	VAR->IT111 = E2EDP01007_MATNR
+
+	;;
+	;;**********************
+	;; ERROR CHECK!!!
+	;;**********************
+	;;
+	[STRTRIM(E2EDP01007_MATNR,"B"," ") == ""] VAR->SourceStatus = 0
+		;;
+		;;
+		SEND_SMSG(1,STRCATM(3,"ERROR!@ SEG.No ",VAR->SEGNUM," MATNR=*BLANK"))
+		;;
+		;;
+
+	;;
+	;;
+}*1 .. 1 ;; |-- end E2EDP01007 --|
+
+
+E2EDP02001 { LineFeedDelimRecord  "E2EDP02001                    "
+E2EDP02001_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP02001_MANDT --|
+E2EDP02001_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDP02001_DOCNUM --|
+E2EDP02001_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP02001_SEGNUM --|
+E2EDP02001_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP02001_PSGNUM --|
+E2EDP02001_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP02001_HLEVEL --|
+E2EDP02001_QUALF { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP02001_QUALF --|
+E2EDP02001_BELNR { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDP02001_BELNR --|
+E2EDP02001_ZEILE { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP02001_ZEILE --|
+E2EDP02001_DATUM { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDP02001_DATUM --|
+E2EDP02001_UZEIT { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP02001_UZEIT --|
+E2EDP02001_BSARK { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDP02001_BSARK --|
+E2EDP02001_IHREZ { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDP02001_IHREZ --|
+E2EDP02001_FILLER { AlphaNumericFld @1 .. 877  none 
+}*0 .. 1 ;; |-- end E2EDP02001_FILLER --|
+}*0 .. 25 ;; |-- end E2EDP02001 --|
+E2EDP03 { LineFeedDelimRecord  "E2EDP03                       "
+E2EDP03_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP03_MANDT --|
+E2EDP03_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDP03_DOCNUM --|
+E2EDP03_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP03_SEGNUM --|
+E2EDP03_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP03_PSGNUM --|
+E2EDP03_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP03_HLEVEL --|
+E2EDP03_IDDAT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP03_IDDAT --|
+E2EDP03_DATUM { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDP03_DATUM --|
+E2EDP03_UZEIT { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP03_UZEIT --|
+E2EDP03_FILLER { AlphaNumericFld @1 .. 983  none 
+}*0 .. 1 ;; |-- end E2EDP03_FILLER --|
+}*0 .. 25 ;; |-- end E2EDP03 --|
+
+
+E2EDP19002 { LineFeedDelimRecord  "E2EDP19002                    "
+E2EDP19002_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP19002_MANDT --|
+E2EDP19002_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDP19002_DOCNUM --|
+E2EDP19002_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP19002_SEGNUM --|
+E2EDP19002_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP19002_PSGNUM --|
+E2EDP19002_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP19002_HLEVEL --|
+E2EDP19002_QUALF { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP19002_QUALF --|
+E2EDP19002_IDTNR { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDP19002_IDTNR --|
+E2EDP19002_KTEXT { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end E2EDP19002_KTEXT --|
+E2EDP19002_MFRPN { AlphaNumericFld @1 .. 42  none 
+}*0 .. 1 ;; |-- end E2EDP19002_MFRPN --|
+E2EDP19002_MFRNR { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end E2EDP19002_MFRNR --|
+E2EDP19002_FILLER { AlphaNumericFld @1 .. 840  none 
+}*0 .. 1 ;; |-- end E2EDP19002_FILLER --|
+
+
+	;;
+	;;***********************
+	;; UPN/EAN
+	;;***********************
+	;;
+	[E2EDP19002_QUALF=="003"]					;EAN/UPC#
+
+	VAR->IT106 = "UP"						;hardcode!?
+	VAR->IT107 = E2EDP19002_IDTNR
+
+
+	;;
+	;;***********************
+	;; CUSTOMER ITEM
+	;;***********************
+	;;
+	[E2EDP19002_QUALF=="001"]					;CUSTOMER ITEM#
+
+	VAR->IT108 = "CB"						;hardcode!?
+	VAR->IT109 = E2EDP19002_IDTNR
+
+
+	;;
+	;;***********************
+	;; VENDOR ITEM
+	;;***********************
+	;;
+	[E2EDP19002_QUALF=="002"]					;VENDOR ITEM#
+
+;;	VAR->IT110 = "VA"						;hardcode!?
+;;	VAR->IT111 = E2EDP19002_IDTNR
+
+	VAR->PID01 = "F"						;hardcode!?	
+	VAR->PID05 = E2EDP19002_KTEXT
+
+
+	;;
+	;;
+}*0 .. 10 ;; |-- end E2EDP19002 --|
+
+
+
+E2EDP26 { LineFeedDelimRecord  "E2EDP26                       "
+E2EDP26_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP26_MANDT --|
+E2EDP26_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDP26_DOCNUM --|
+E2EDP26_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP26_SEGNUM --|
+E2EDP26_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP26_PSGNUM --|
+E2EDP26_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP26_HLEVEL --|
+E2EDP26_QUALF { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP26_QUALF --|
+E2EDP26_BETRG { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP26_BETRG --|
+E2EDP26_FILLER { AlphaNumericFld @1 .. 979  none 
+}*0 .. 1 ;; |-- end E2EDP26_FILLER --|
+
+	;;
+	;;**********************
+	;; AMOUNT/PRICE
+	;;**********************
+	;;
+	[E2EDP26_QUALF == "001"]
+	VAR->IT104 = E2EDP26_BETRG
+
+	;;
+	;;
+}*0 .. 20 ;; |-- end E2EDP26 --|
+
+
+
+E2EDPA1003 { LineFeedDelimRecord  "E2EDPA1003                    "
+E2EDPA1003_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_MANDT --|
+E2EDPA1003_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_DOCNUM --|
+E2EDPA1003_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_SEGNUM --|
+E2EDPA1003_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PSGNUM --|
+E2EDPA1003_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_HLEVEL --|
+E2EDPA1003_PARVW { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PARVW --|
+E2EDPA1003_PARTN { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PARTN --|
+E2EDPA1003_LIFNR { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_LIFNR --|
+E2EDPA1003_NAME1 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_NAME1 --|
+E2EDPA1003_NAME2 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_NAME2 --|
+E2EDPA1003_NAME3 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_NAME3 --|
+E2EDPA1003_NAME4 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_NAME4 --|
+E2EDPA1003_STRAS { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_STRAS --|
+E2EDPA1003_STRS2 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_STRS2 --|
+E2EDPA1003_PFACH { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PFACH --|
+E2EDPA1003_ORT01 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_ORT01 --|
+E2EDPA1003_COUNC { AlphaNumericFld @1 .. 9  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_COUNC --|
+E2EDPA1003_PSTLZ { AlphaNumericFld @1 .. 9  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PSTLZ --|
+E2EDPA1003_PSTL2 { AlphaNumericFld @1 .. 9  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PSTL2 --|
+E2EDPA1003_LAND1 { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_LAND1 --|
+E2EDPA1003_ABLAD { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_ABLAD --|
+E2EDPA1003_PERNR { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PERNR --|
+E2EDPA1003_PARNR { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PARNR --|
+E2EDPA1003_TELF1 { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_TELF1 --|
+E2EDPA1003_TELF2 { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_TELF2 --|
+E2EDPA1003_TELBX { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_TELBX --|
+E2EDPA1003_TELFX { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_TELFX --|
+E2EDPA1003_TELTX { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_TELTX --|
+E2EDPA1003_TELX1 { AlphaNumericFld @1 .. 25  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_TELX1 --|
+E2EDPA1003_SPRAS { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_SPRAS --|
+E2EDPA1003_ANRED { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_ANRED --|
+E2EDPA1003_ORT02 { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_ORT02 --|
+E2EDPA1003_HAUSN { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_HAUSN --|
+E2EDPA1003_STOCK { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_STOCK --|
+E2EDPA1003_REGIO { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_REGIO --|
+E2EDPA1003_PARGE { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PARGE --|
+E2EDPA1003_ISOAL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_ISOAL --|
+E2EDPA1003_ISONU { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_ISONU --|
+E2EDPA1003_FCODE { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_FCODE --|
+E2EDPA1003_IHREZ { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_IHREZ --|
+E2EDPA1003_BNAME { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_BNAME --|
+E2EDPA1003_PAORG { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PAORG --|
+E2EDPA1003_ORGTX { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_ORGTX --|
+E2EDPA1003_PAGRU { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PAGRU --|
+E2EDPA1003_KNREF { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_KNREF --|
+E2EDPA1003_ILNNR { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_ILNNR --|
+E2EDPA1003_PFORT { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_PFORT --|
+E2EDPA1003_SPRAS_ISO { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_SPRAS_ISO --|
+E2EDPA1003_TITLE { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_TITLE --|
+E2EDPA1003_FILLER { AlphaNumericFld @1 .. 5  none 
+}*0 .. 1 ;; |-- end E2EDPA1003_FILLER --|
+}*0 .. 20 ;; |-- end E2EDPA1003 --|
+
+
+
+E2EDP05002 { LineFeedDelimRecord  "E2EDP05002                    "
+E2EDP05002_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP05002_MANDT --|
+E2EDP05002_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDP05002_DOCNUM --|
+E2EDP05002_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP05002_SEGNUM --|
+E2EDP05002_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP05002_PSGNUM --|
+E2EDP05002_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP05002_HLEVEL --|
+E2EDP05002_ALCKZ { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP05002_ALCKZ --|
+E2EDP05002_KSCHL { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDP05002_KSCHL --|
+E2EDP05002_KOTXT { AlphaNumericFld @1 .. 80  none 
+}*0 .. 1 ;; |-- end E2EDP05002_KOTXT --|
+E2EDP05002_BETRG { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP05002_BETRG --|
+E2EDP05002_KPERC { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDP05002_KPERC --|
+E2EDP05002_KRATE { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP05002_KRATE --|
+E2EDP05002_UPRBS { AlphaNumericFld @1 .. 9  none 
+}*0 .. 1 ;; |-- end E2EDP05002_UPRBS --|
+E2EDP05002_MEAUN { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP05002_MEAUN --|
+E2EDP05002_KOBTR { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP05002_KOBTR --|
+E2EDP05002_MENGE { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP05002_MENGE --|
+E2EDP05002_PREIS { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP05002_PREIS --|
+E2EDP05002_MWSKZ { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDP05002_MWSKZ --|
+E2EDP05002_MSATZ { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDP05002_MSATZ --|
+E2EDP05002_KOEIN { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP05002_KOEIN --|
+E2EDP05002_CURTP { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP05002_CURTP --|
+E2EDP05002_KOBAS { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP05002_KOBAS --|
+E2EDP05002_FILLER { AlphaNumericFld @1 .. 765  none 
+}*0 .. 1 ;; |-- end E2EDP05002_FILLER --|
+
+	;;
+	[]
+	;;
+	VAR->ALCKZ = E2EDP05002_ALCKZ
+
+	;;
+	;;
+}*0 .. 99 ;; |-- end E2EDP05002 --|
+
+
+
+E2EDP04001 { LineFeedDelimRecord  "E2EDP04001                    "
+E2EDP04001_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP04001_MANDT --|
+E2EDP04001_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDP04001_DOCNUM --|
+E2EDP04001_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP04001_SEGNUM --|
+E2EDP04001_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP04001_PSGNUM --|
+E2EDP04001_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP04001_HLEVEL --|
+E2EDP04001_MWSKZ { AlphaNumericFld @1 .. 7  none 
+}*0 .. 1 ;; |-- end E2EDP04001_MWSKZ --|
+E2EDP04001_MSATZ { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDP04001_MSATZ --|
+E2EDP04001_MWSBT { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP04001_MWSBT --|
+E2EDP04001_TXJCD { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP04001_TXJCD --|
+E2EDP04001_KTEXT { AlphaNumericFld @1 .. 50  none 
+}*0 .. 1 ;; |-- end E2EDP04001_KTEXT --|
+E2EDP04001_FILLER { AlphaNumericFld @1 .. 893  none 
+}*0 .. 1 ;; |-- end E2EDP04001_FILLER --|
+}*0 .. 25 ;; |-- end E2EDP04001 --|
+E2EDP28003 { LineFeedDelimRecord  "E2EDP28003                    "
+E2EDP28003_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP28003_MANDT --|
+E2EDP28003_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDP28003_DOCNUM --|
+E2EDP28003_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP28003_SEGNUM --|
+E2EDP28003_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP28003_PSGNUM --|
+E2EDP28003_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP28003_HLEVEL --|
+E2EDP28003_EXNUM { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end E2EDP28003_EXNUM --|
+E2EDP28003_EXPOS { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP28003_EXPOS --|
+E2EDP28003_STAWN { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDP28003_STAWN --|
+E2EDP28003_EXPRF { AlphaNumericFld @1 .. 5  none 
+}*0 .. 1 ;; |-- end E2EDP28003_EXPRF --|
+E2EDP28003_EXART { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP28003_EXART --|
+E2EDP28003_HERKL { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP28003_HERKL --|
+E2EDP28003_HERKR { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP28003_HERKR --|
+E2EDP28003_HERTA { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP28003_HERTA --|
+E2EDP28003_HERTI { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP28003_HERTI --|
+E2EDP28003_STXT1 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP28003_STXT1 --|
+E2EDP28003_STXT2 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP28003_STXT2 --|
+E2EDP28003_STXT3 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP28003_STXT3 --|
+E2EDP28003_STXT4 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP28003_STXT4 --|
+E2EDP28003_STXT5 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP28003_STXT5 --|
+E2EDP28003_STXT6 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP28003_STXT6 --|
+E2EDP28003_STXT7 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP28003_STXT7 --|
+E2EDP28003_BEMAS { AlphaNumericFld @1 .. 5  none 
+}*0 .. 1 ;; |-- end E2EDP28003_BEMAS --|
+E2EDP28003_PREFE { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP28003_PREFE --|
+E2EDP28003_BOLNR { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDP28003_BOLNR --|
+E2EDP28003_TRATY { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDP28003_TRATY --|
+E2EDP28003_TRAID { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDP28003_TRAID --|
+E2EDP28003_BRULO { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP28003_BRULO --|
+E2EDP28003_NETLO { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP28003_NETLO --|
+E2EDP28003_VEMEH { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP28003_VEMEH --|
+E2EDP28003_HERBL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP28003_HERBL --|
+E2EDP28003_BMGEW { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP28003_BMGEW --|
+E2EDP28003_TEXT1 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP28003_TEXT1 --|
+E2EDP28003_TEXT2 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP28003_TEXT2 --|
+E2EDP28003_TEXT3 { AlphaNumericFld @1 .. 40  none 
+}*0 .. 1 ;; |-- end E2EDP28003_TEXT3 --|
+E2EDP28003_COIMP { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDP28003_COIMP --|
+E2EDP28003_COADI { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP28003_COADI --|
+E2EDP28003_COKON { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP28003_COKON --|
+E2EDP28003_COPHA { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP28003_COPHA --|
+E2EDP28003_CASNR { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP28003_CASNR --|
+E2EDP28003_VERLD { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP28003_VERLD --|
+E2EDP28003_VERLD_TX { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP28003_VERLD_TX --|
+E2EDP28003_HANLD { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP28003_HANLD --|
+E2EDP28003_HANLD_TX { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP28003_HANLD_TX --|
+E2EDP28003_EXPRF_TX { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDP28003_EXPRF_TX --|
+E2EDP28003_EXART_TX { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDP28003_EXART_TX --|
+E2EDP28003_GBNUM { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDP28003_GBNUM --|
+E2EDP28003_REGNR { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDP28003_REGNR --|
+E2EDP28003_HERSE { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end E2EDP28003_HERSE --|
+E2EDP28003_HERKR_TX { AlphaNumericFld @1 .. 20  none 
+}*0 .. 1 ;; |-- end E2EDP28003_HERKR_TX --|
+E2EDP28003_COBLD { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDP28003_COBLD --|
+E2EDP28003_EIOKA { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP28003_EIOKA --|
+E2EDP28003_VERFA { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDP28003_VERFA --|
+E2EDP28003_PRENC { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP28003_PRENC --|
+E2EDP28003_PRENO { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDP28003_PRENO --|
+E2EDP28003_PREND { AlphaNumericFld @1 .. 8  none 
+}*0 .. 1 ;; |-- end E2EDP28003_PREND --|
+E2EDP28003_BESMA { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP28003_BESMA --|
+E2EDP28003_IMPMA { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP28003_IMPMA --|
+E2EDP28003_KTNUM { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end E2EDP28003_KTNUM --|
+E2EDP28003_PLNUM { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end E2EDP28003_PLNUM --|
+E2EDP28003_WKREG { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP28003_WKREG --|
+E2EDP28003_IMGEW { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP28003_IMGEW --|
+E2EDP28003_FILLER { AlphaNumericFld @1 .. 106  none 
+}*0 .. 1 ;; |-- end E2EDP28003_FILLER --|
+}*0 .. 9 ;; |-- end E2EDP28003 --|
+E2EDP08 { LineFeedDelimRecord  "E2EDP08                       "
+E2EDP08_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP08_MANDT --|
+E2EDP08_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDP08_DOCNUM --|
+E2EDP08_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP08_SEGNUM --|
+E2EDP08_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP08_PSGNUM --|
+E2EDP08_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP08_HLEVEL --|
+E2EDP08_HLNUM { AlphaNumericFld @1 .. 12  none 
+}*0 .. 1 ;; |-- end E2EDP08_HLNUM --|
+E2EDP08_PARENT { AlphaNumericFld @1 .. 12  none 
+}*0 .. 1 ;; |-- end E2EDP08_PARENT --|
+E2EDP08_LEVEL { AlphaNumericFld @1 .. 12  none 
+}*0 .. 1 ;; |-- end E2EDP08_LEVEL --|
+E2EDP08_EXIDV { AlphaNumericFld @1 .. 45  none 
+}*0 .. 1 ;; |-- end E2EDP08_EXIDV --|
+E2EDP08_VENUM { AlphaNumericFld @1 .. 10  none 
+}*0 .. 1 ;; |-- end E2EDP08_VENUM --|
+E2EDP08_VEMEH { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP08_VEMEH --|
+E2EDP08_PCKAR { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDP08_PCKAR --|
+E2EDP08_PCKNR { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDP08_PCKNR --|
+E2EDP08_ANZAR { AlphaNumericFld @1 .. 15  none 
+}*0 .. 1 ;; |-- end E2EDP08_ANZAR --|
+E2EDP08_VBELN { AlphaNumericFld @1 .. 35  none 
+}*0 .. 1 ;; |-- end E2EDP08_VBELN --|
+E2EDP08_POSNR { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDP08_POSNR --|
+E2EDP08_BTGEW { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP08_BTGEW --|
+E2EDP08_NTGEW { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP08_NTGEW --|
+E2EDP08_TARAG { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP08_TARAG --|
+E2EDP08_GEWEI { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP08_GEWEI --|
+E2EDP08_BTVOL { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP08_BTVOL --|
+E2EDP08_NTVOL { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP08_NTVOL --|
+E2EDP08_TAVOL { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP08_TAVOL --|
+E2EDP08_VOLEH { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP08_VOLEH --|
+E2EDP08_LAENG { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP08_LAENG --|
+E2EDP08_BREIT { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP08_BREIT --|
+E2EDP08_HOEHE { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDP08_HOEHE --|
+E2EDP08_MEABM { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP08_MEABM --|
+E2EDP08_MEINS { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP08_MEINS --|
+E2EDP08_VSTEL { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDP08_VSTEL --|
+E2EDP08_LSTEL { AlphaNumericFld @1 .. 17  none 
+}*0 .. 1 ;; |-- end E2EDP08_LSTEL --|
+E2EDP08_PKNRS { AlphaNumericFld @1 .. 1  none 
+}*0 .. 1 ;; |-- end E2EDP08_PKNRS --|
+E2EDP08_FILLER { AlphaNumericFld @1 .. 547  none 
+}*0 .. 1 ;; |-- end E2EDP08_FILLER --|
+}*0 .. 999999 ;; |-- end E2EDP08 --|
+E2EDP30000 { LineFeedDelimRecord  "E2EDP30000                    "
+E2EDP30000_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP30000_MANDT --|
+E2EDP30000_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDP30000_DOCNUM --|
+E2EDP30000_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP30000_SEGNUM --|
+E2EDP30000_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDP30000_PSGNUM --|
+E2EDP30000_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDP30000_HLEVEL --|
+E2EDP30000_QUALF { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDP30000_QUALF --|
+E2EDP30000_IVKON { AlphaNumericFld @1 .. 30  none 
+}*0 .. 1 ;; |-- end E2EDP30000_IVKON --|
+E2EDP30000_FILLER { AlphaNumericFld @1 .. 967  none 
+}*0 .. 1 ;; |-- end E2EDP30000_FILLER --|
+}*0 .. 99 ;; |-- end E2EDP30000 --|
+GROUP_3 { 
+E2EDPT1001 { LineFeedDelimRecord  "E2EDPT1001                    "
+E2EDPT1001_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDPT1001_MANDT --|
+E2EDPT1001_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDPT1001_DOCNUM --|
+E2EDPT1001_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDPT1001_SEGNUM --|
+E2EDPT1001_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDPT1001_PSGNUM --|
+E2EDPT1001_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDPT1001_HLEVEL --|
+E2EDPT1001_TDID { AlphaNumericFld @1 .. 4  none 
+}*0 .. 1 ;; |-- end E2EDPT1001_TDID --|
+E2EDPT1001_TSSPRAS { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDPT1001_TSSPRAS --|
+E2EDPT1001_TSSPRAS_ISO { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDPT1001_TSSPRAS_ISO --|
+E2EDPT1001_FILLER { AlphaNumericFld @1 .. 991  none 
+}*0 .. 1 ;; |-- end E2EDPT1001_FILLER --|
+}*1 .. 1 ;; |-- end E2EDPT1001 --|
+E2EDPT2001 { LineFeedDelimRecord  "E2EDPT2001                    "
+E2EDPT2001_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDPT2001_MANDT --|
+E2EDPT2001_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDPT2001_DOCNUM --|
+E2EDPT2001_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDPT2001_SEGNUM --|
+E2EDPT2001_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDPT2001_PSGNUM --|
+E2EDPT2001_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDPT2001_HLEVEL --|
+E2EDPT2001_TDLINE { AlphaNumericFld @1 .. 70  none 
+}*0 .. 1 ;; |-- end E2EDPT2001_TDLINE --|
+E2EDPT2001_TDFORMAT { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDPT2001_TDFORMAT --|
+E2EDPT2001_FILLER { AlphaNumericFld @1 .. 928  none 
+}*0 .. 1 ;; |-- end E2EDPT2001_FILLER --|
+}*0 .. 999 ;; |-- end E2EDPT2001 --|
+}*0 .. 99 ;; |-- end GROUP_3 --|
+
+	;;
+	;;
+	[VAR->ALCKZ != ""]
+	;;
+	ARRAY->IT100 = "Data"
+
+	ARRAY->IT102 = VAR->IT102 
+	ARRAY->IT103 = VAR->IT103 
+
+	ARRAY->IT104 = VAR->IT104
+
+	ARRAY->IT106 = VAR->IT106
+	ARRAY->IT107 = VAR->IT107
+
+	ARRAY->IT108 = VAR->IT108
+	ARRAY->IT109 = VAR->IT109
+
+	ARRAY->IT110 = VAR->IT110
+	ARRAY->IT111 = VAR->IT111
+
+	ARRAY->PID01 = VAR->PID01
+	ARRAY->PID05 = VAR->PID05
+
+	;;
+	;;
+	[VAR->ALCKZ != ""]
+	;;
+	VAR->CTT01   = VAR->CTT01 + 1
+	VAR->TDS01   = VAR->TDS01
+	VAR->TDS02   = VAR->TDS02
+
+
+	;;
+	;;***********************
+	;; ERROR CHECK!!!
+	;;***********************
+	;;
+	[VAR->ALCKZ != "" && STRTRIM(VAR->IT107,"B"," ") == ""] VAR->SourceStatus = 0
+		;;
+		;;
+	 	SEND_SMSG(1,STRCATM(3,"ERROR!@ SEG.No ",VAR->SEGNUM," EAN11=*BLANK"))
+		;;
+		;;
+
+	;;[VAR->ALCKZ != "" && STRTRIM(VAR->IT109,"B"," ") == ""] VAR->SourceStatus = 0
+		;;
+		;;
+		;;SEND_SMSG(1,STRCATM(3,"ERROR!@ SEG.No ",VAR->SEGNUM," KDMAT=*BLANK"))
+		;;
+		;;
+
+
+	;;
+	;;
+}*0 .. 999999 ;; |-- end GROUP_2 --|
+
+
+
+E2EDS01 { LineFeedDelimRecord  "E2EDS01                       "
+E2EDS01_MANDT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDS01_MANDT --|
+E2EDS01_DOCNUM { AlphaNumericFld @1 .. 16  none 
+}*0 .. 1 ;; |-- end E2EDS01_DOCNUM --|
+E2EDS01_SEGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDS01_SEGNUM --|
+E2EDS01_PSGNUM { AlphaNumericFld @1 .. 6  none 
+}*0 .. 1 ;; |-- end E2EDS01_PSGNUM --|
+E2EDS01_HLEVEL { AlphaNumericFld @1 .. 2  none 
+}*0 .. 1 ;; |-- end E2EDS01_HLEVEL --|
+E2EDS01_SUMID { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDS01_SUMID --|
+E2EDS01_SUMME { AlphaNumericFld @1 .. 18  none 
+}*0 .. 1 ;; |-- end E2EDS01_SUMME --|
+E2EDS01_SUNIT { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDS01_SUNIT --|
+E2EDS01_WAERQ { AlphaNumericFld @1 .. 3  none 
+}*0 .. 1 ;; |-- end E2EDS01_WAERQ --|
+E2EDS01_FILLER { AlphaNumericFld @1 .. 973  none 
+}*0 .. 1 ;; |-- end E2EDS01_FILLER --|
+
+	;;
+	;;
+	[E2EDS01_SUMID == "011"] VAR->TDS01 = E2EDS01_SUMME
+
+	;;
+	;;
+	[E2EDS01_SUMID == "010"] VAR->TDS02 = E2EDS01_SUMME
+
+
+	;;
+	;;
+}*0 .. 30 ;; |-- end E2EDS01 --|
+
+	;;
+	[]
+
+	SET_EVAR( "HIERARCHY_KEY" , VAR->OTHierarchyID )
+	SET_EVAR( "TARGET_MODEL"  , $MsgOutMdlName     ) 
+	SET_EVAR( "TARGET_ACCESS" , $MsgOutAccName     ) 
+	VAR->OTCurMsgStd 	  = $MsgStd 
+	VAR->OTCurMsgType 	  = $X12MsgType 
+	VAR->OTCurMsgCommID 	  = $MsgCommID 
+	VAR->OTCurMsgHierID 	  = VAR->OTHierarchyID 
+	;;
+	[]
+
+	[VAR->SourceStatus == 1] VAR->OTSourceSuccessful = "Yes" 
+	[VAR->SourceStatus == 0] VAR->OTSourceSuccessful = "No"  
+
+	[VAR->SourceStatus == 0] EXEC "C:\TRANPROD\00SAPMSG.bat AAFS/7682.810+Snd.IN___ERROR!"
+
+	[VAR->SourceStatus == 0] EXIT 0
+
+	;;
+	[]
+	
+	ATTACH "OTTrg.att" 
+
+	[]
+	VAR->idocstat  = "06"
+	VAR->SAPCTL    = $X12ICLstSentCtlNo + 1 
+	VAR->SAPFGCTL  = $X12FGLstSentCtlNo + 1 
+	VAR->SAPMesCTL = VAR->OTSessionNo
+
+	[]
+	ATTACH "SPdcstat.att" 
+	
+	;;
+	;;
+}*0 .. 1 ;; |-- end Document_Loop --|
