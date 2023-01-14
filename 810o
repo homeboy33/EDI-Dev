@@ -1,5 +1,0 @@
-;                                   OTX12SO.att
-;                                     ver 3.1 
-;                                  -------------
-S_ACCESS    = "OTFixed.acc"
-S_MODEL     = ""              ;;location
