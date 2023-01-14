@@ -2,4 +2,4 @@
 ;                                     ver 3.1 
 ;                                  -------------
 S_ACCESS    = "OTFixed.acc"
-S_MODEL     = "c:\tranprod53\mapping\0AAFS\AAFS810os.mdl"
+S_MODEL     = ""              ;;location
