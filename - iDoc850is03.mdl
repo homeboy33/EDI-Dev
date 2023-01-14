@@ -1,0 +1,89 @@
+;;BEG Seg - Group 1
+
+Msg_850_GROUP_1 { 
+BEG { Segment  "BEG"
+BEG_set { 
+[]
+SET_ECOUNT(VAR->OTElemCnt, 0)
+	VAR->BEG01 = ""
+	VAR->BEG02 = ""
+	VAR->BEG03 = ""
+	VAR->BEG05 = ""
+}*1 .. 1 ;; |-- end BEG_set --|
+BEG_01_353 { ElementID @2 .. 2  v0353 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &BEG_01_353)
+	:ABSENT
+	[]
+	SEND_SMSG(1,"ERROR!@ S,BEG01") VAR->SourceStatus = 0
+}*1 .. 1 ;; |-- end BEG_01_353 --|
+BEG_02_92 { ElementID @2 .. 2  v0092 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &BEG_02_92)
+	:ABSENT
+	[]
+	SEND_SMSG(1,"ERROR!@ S,BEG02") VAR->SourceStatus = 0
+}*1 .. 1 ;; |-- end BEG_02_92 --|
+BEG_03_324 { ElementAN @1 .. 22  none 
+	:ABSENT
+	[]
+	SEND_SMSG(1,"ERROR!@ S,BEG03") VAR->SourceStatus = 0
+}*1 .. 1 ;; |-- end BEG_03_324 --|
+BEG_04_328 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end BEG_04_328 --|
+BEG_05_373 { ElementDT @8 .. 8 "YYYYMMDD" none 
+	:ABSENT
+	[]
+	SEND_SMSG(1,"ERROR!@ S,BEG05") VAR->SourceStatus = 0
+}*1 .. 1 ;; |-- end BEG_05_373 --|
+BEG_06_367 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end BEG_06_367 --|
+BEG_07_587 { ElementID @2 .. 2  v0587 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &BEG_07_587)
+}*0 .. 1 ;; |-- end BEG_07_587 --|
+BEG_08_1019 { ElementID @3 .. 3  v1019 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &BEG_08_1019)
+}*0 .. 1 ;; |-- end BEG_08_1019 --|
+BEG_09_1166 { ElementID @2 .. 2  v1166 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &BEG_09_1166)
+}*0 .. 1 ;; |-- end BEG_09_1166 --|
+BEG_10_1232 { ElementID @2 .. 2  v1232 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &BEG_10_1232)
+}*0 .. 1 ;; |-- end BEG_10_1232 --|
+BEG_11_786 { ElementID @2 .. 2  v0786 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &BEG_11_786)
+}*0 .. 1 ;; |-- end BEG_11_786 --|
+BEG_12_640 { ElementID @2 .. 2  v0640 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &BEG_12_640)
+}*0 .. 1 ;; |-- end BEG_12_640 --|
+
+	[]
+	VAR->BEG01 = DEFAULT_NULL(&BEG_01_353)
+	VAR->BEG02 = DEFAULT_NULL(&BEG_02_92 ) 
+	VAR->BEG03 = DEFAULT_NULL(&BEG_03_324)
+	VAR->BEG05 = DEFAULT_NULL(&BEG_05_373)
+	[]
+	ARRAY->DK02_QUALF   = "001"
+	ARRAY->DK02_BELNR   = VAR->BEG03
+	ARRAY->DK02_DATUM   = VAR->BEG05
+	[]
+	ARRAY->DK03_IDDAT   = "X39"
+	ARRAY->DK03_DATUM   = VAR->BEG05
+	ARRAY->DK03_UZEIT   = "   "
+
+	[]
+	VAR->OTApplMsgCtlNo = VAR->BEG03 
+
+
+	:ABSENT
+	[]
+	BREAK
+	;;
+	;;
+}*1 .. 1 ;; |-- end BEG --|
