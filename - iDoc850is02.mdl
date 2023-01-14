@@ -1,0 +1,34 @@
+;; PO type 
+  []
+	VAR->N1ST0 = "N"
+	VAR->DSDC0 = "B"
+
+	[]
+	VAR->ITD00 = "None"
+	VAR->ITD01 = ""
+	VAR->ITD02 = ""
+	VAR->ITD03 = ""
+	VAR->ITD04 = ""
+	VAR->ITD05 = ""
+	VAR->ITD06 = ""
+	VAR->ITD07 = ""
+	VAR->ITD12 = ""
+
+	[]
+	VAR->ZRF01 = ""
+	VAR->ZRF02 = ""
+	VAR->ZRF03 = ""
+	VAR->ZRF04 = ""
+	VAR->ZRF05 = ""
+	VAR->ZRF06 = ""
+	VAR->ZRF07 = ""
+	VAR->ZRF08 = ""
+	VAR->ZRF09 = ""
+	VAR->ZRF10 = ""
+
+
+	[]
+	ARRAY->DKT1_REC00 = "Data"
+	;;
+	;;
+}*1 .. 1 ;; |-- end Initialization --|
