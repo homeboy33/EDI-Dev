@@ -1,0 +1,51 @@
+;; Source iDoc 850 head hierarchy level
+
+Initialization { 
+[]
+VAR->OTMdlVer = "StdVer 3.0 - Do Not Remove This Line"
+PERFORM("OTSrcInit", "STD|X12|004010", "X12")
+	[]
+	VAR->X12Version = "004010"
+
+	[]
+	VAR->OTIDsVfy   = "Yes"
+	VAR->OTCondVfy  = "Yes"
+	[]
+	VAR->N1_BILLTO_IDCOD = "BT"
+	VAR->N1_BILLTO_PARTT = ""
+	VAR->N1_BILLTO_PARVW = ""
+	VAR->N1_BILLTO_PARTN = ""
+
+	VAR->N1_SOLDTO_IDCOD = "BY"
+	VAR->N1_SOLDTO_PARTT = ""
+	VAR->N1_SOLDTO_PARVW = ""
+	VAR->N1_SOLDTO_PARTN = ""
+
+	VAR->N1_SHIPTO_IDCOD = "ST"
+	VAR->N1_SHIPTO_PARTT = ""
+	VAR->N1_SHIPTO_PARVW = ""
+	VAR->N1_SHIPTO_PARTN = ""
+
+	VAR->N1_STOREx_IDCOD = "Z7"
+	VAR->N1_STOREx_PARTT = ""
+	VAR->N1_STOREx_PARVW = ""
+	VAR->N1_STOREx_PARTN = ""
+
+	[]
+	VAR->N1_STOREn_MENEE = ""
+	VAR->N1_STOREn_MENGE = ""
+
+	VAR->N1_STOREn_PARTT = ""
+	VAR->N1_STOREn_PARVW = ""
+	VAR->N1_STOREn_PARTN = ""
+
+	[]
+	VAR->PO101_LINE      = 0
+
+	[]
+	VAR->AMTPO1_DSUM     = 0
+	VAR->AMTPO1_HSUM     = 0
+
+	[]
+	VAR->SourceStatus    = 1	
+	VAR->n1STPassFLG0    = 0
