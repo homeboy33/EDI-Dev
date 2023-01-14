@@ -1,15 +1,4 @@
-;;; (locale=English_United States.Cp1252@Binary)
-;;; (IDOC810os.mdl)
-;;; (version = 4.1)
-;;; (type = SOURCE)
-;;; (access = OTFixed.acc)
-;;; Modified: Sun Sep 19 23:03:45 EDT 2004
-;;;     by user: geoff
-;;; OmniTrans(tm) Interchange Format.
-;;; (c) Copyright 1996-2000
-;;;    RMS Electronic Commerce Systems, Inc.
-;;; WorkBench 4.0 checksum = 375432131
-;;; 
+;; 810 level
 
 DECLARATIONS {
 INCLUDE "user.inc"
@@ -416,11 +405,11 @@ E2EDKA1003_FILLER { AlphaNumericFld @1 .. 5  none
 	;; REMIT
 	;;*************************
 	;;
-	[E2EDKA1003_PARVW == "BK "]					;COMPANY/SUPPLIER
+	[E2EDKA1003_PARVW == "BK "]					
 	;;
 	 ARRAY->N100 = "Data"
 
-	 ARRAY->N101 = "RI"						;hardcode!?
+	 ARRAY->N101 = "RI"						
 ;;	 ARRAY->N102 = STRTRIM(E2EDKA1003_NAME1,"B"," ")
 	 ARRAY->N102 = "  "
 	 ARRAY->N103 = "1 "						;hardcode!?
