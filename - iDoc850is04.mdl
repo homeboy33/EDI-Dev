@@ -1,0 +1,106 @@
+;; CUR Seg - Group 1
+
+CUR { Segment  "CUR"
+CUR_set { 
+[]
+SET_ECOUNT(VAR->OTElemCnt, 0)
+	VAR->CUR01 = ""
+	VAR->CUR02 = ""
+	VAR->CUR03 = ""
+}*1 .. 1 ;; |-- end CUR_set --|
+CUR_01_98 { ElementID @2 .. 3  v0098 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &CUR_01_98)
+	:ABSENT
+	[]
+	SEND_SMSG(1,"ERROR!@ S,CUR01") VAR->SourceStatus = 0
+}*1 .. 1 ;; |-- end CUR_01_98 --|
+CUR_02_100 { ElementID @3 .. 3  none 
+	:ABSENT
+	[]
+	SEND_SMSG(1,"ERROR!@ S,CUR02") VAR->SourceStatus = 0
+}*1 .. 1 ;; |-- end CUR_02_100 --|
+CUR_03_280 { ElementN @4 .. 10 "NRRRRRRRRRR:4" none 
+}*0 .. 1 ;; |-- end CUR_03_280 --|
+CUR_04_98 { ElementID @2 .. 3  v0098 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &CUR_04_98)
+}*0 .. 1 ;; |-- end CUR_04_98 --|
+CUR_05_100 { ElementID @3 .. 3  none 
+}*0 .. 1 ;; |-- end CUR_05_100 --|
+CUR_06_669 { ElementID @3 .. 3  v0669 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &CUR_06_669)
+}*0 .. 1 ;; |-- end CUR_06_669 --|
+CUR_07_374 { ElementID @3 .. 3  v0374 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &CUR_07_374)
+}*0 .. 1 ;; |-- end CUR_07_374 --|
+CUR_08_373 { ElementDT @8 .. 8 "YYYYMMDD" none 
+}*0 .. 1 ;; |-- end CUR_08_373 --|
+CUR_09_337 { ElementTM @4 .. 8 "HHMMssdd" none 
+}*0 .. 1 ;; |-- end CUR_09_337 --|
+CUR_10_374 { ElementID @3 .. 3  v0374 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &CUR_10_374)
+}*0 .. 1 ;; |-- end CUR_10_374 --|
+CUR_11_373 { ElementDT @8 .. 8 "YYYYMMDD" none 
+}*0 .. 1 ;; |-- end CUR_11_373 --|
+CUR_12_337 { ElementTM @4 .. 8 "HHMMssdd" none 
+}*0 .. 1 ;; |-- end CUR_12_337 --|
+CUR_13_374 { ElementID @3 .. 3  v0374 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &CUR_13_374)
+}*0 .. 1 ;; |-- end CUR_13_374 --|
+CUR_14_373 { ElementDT @8 .. 8 "YYYYMMDD" none 
+}*0 .. 1 ;; |-- end CUR_14_373 --|
+CUR_15_337 { ElementTM @4 .. 8 "HHMMssdd" none 
+}*0 .. 1 ;; |-- end CUR_15_337 --|
+CUR_16_374 { ElementID @3 .. 3  v0374 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &CUR_16_374)
+}*0 .. 1 ;; |-- end CUR_16_374 --|
+CUR_17_373 { ElementDT @8 .. 8 "YYYYMMDD" none 
+}*0 .. 1 ;; |-- end CUR_17_373 --|
+CUR_18_337 { ElementTM @4 .. 8 "HHMMssdd" none 
+}*0 .. 1 ;; |-- end CUR_18_337 --|
+CUR_19_374 { ElementID @3 .. 3  v0374 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &CUR_19_374)
+}*0 .. 1 ;; |-- end CUR_19_374 --|
+CUR_20_373 { ElementDT @8 .. 8 "YYYYMMDD" none 
+}*0 .. 1 ;; |-- end CUR_20_373 --|
+CUR_21_337 { ElementTM @4 .. 8 "HHMMssdd" none 
+}*0 .. 1 ;; |-- end CUR_21_337 --|
+[]
+PERFORM("OTConditional2", "C", &CUR_08_373, &CUR_07_374)
+PERFORM("OTConditional2", "C", &CUR_09_337, &CUR_07_374)
+PERFORM("OTConditional3", "L", &CUR_10_374, &CUR_11_373, &CUR_12_337)
+PERFORM("OTConditional2", "C", &CUR_11_373, &CUR_10_374)
+PERFORM("OTConditional2", "C", &CUR_12_337, &CUR_10_374)
+PERFORM("OTConditional3", "L", &CUR_13_374, &CUR_14_373, &CUR_15_337)
+PERFORM("OTConditional2", "C", &CUR_14_373, &CUR_13_374)
+PERFORM("OTConditional2", "C", &CUR_15_337, &CUR_13_374)
+PERFORM("OTConditional3", "L", &CUR_16_374, &CUR_17_373, &CUR_18_337)
+PERFORM("OTConditional2", "C", &CUR_17_373, &CUR_16_374)
+PERFORM("OTConditional2", "C", &CUR_18_337, &CUR_16_374)
+PERFORM("OTConditional3", "L", &CUR_19_374, &CUR_20_373, &CUR_21_337)
+PERFORM("OTConditional2", "C", &CUR_20_373, &CUR_19_374)
+PERFORM("OTConditional2", "C", &CUR_21_337, &CUR_19_374)
+
+	[]
+	VAR->CUR01 = DEFAULT_NULL(&CUR_01_98 )
+	VAR->CUR02 = DEFAULT_NULL(&CUR_02_100)
+	VAR->CUR03 = DEFAULT_NULL(&CUR_03_280)
+
+	:ABSENT
+	[]
+	VAR->CUR01 = ""
+	VAR->CUR02 = ""
+	VAR->CUR03 = ""
+	
+	[]
+	BREAK
+	;;
+	;;
+}*0 .. 1 ;; |-- end CUR --|
