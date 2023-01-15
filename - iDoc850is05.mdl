@@ -1,0 +1,81 @@
+;;REF Seg - Group 1
+
+REF { Segment  "REF"
+REF_set { 
+[]
+SET_ECOUNT(VAR->OTElemCnt, 0)
+	VAR->REF01 = ""
+	VAR->REF02 = ""
+	VAR->REF03 = ""
+}*1 .. 1 ;; |-- end REF_set --|
+REF_01_128 { ElementID @2 .. 3  v0128 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &REF_01_128)
+	:ABSENT
+	[]
+	SEND_SMSG(1,"ERROR!@ S,REF01") VAR->SourceStatus = 0
+}*1 .. 1 ;; |-- end REF_01_128 --|
+REF_02_127 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end REF_02_127 --|
+REF_03_352 { ElementAN @1 .. 80  none 
+}*0 .. 1 ;; |-- end REF_03_352 --|
+REF_04_C040 { Composite 
+REF_04_set { 
+[]
+SET_ECOUNT(VAR->OTCompCnt, 0)
+}*1 .. 1 ;; |-- end REF_04_set --|
+REF_04_01_128 { BegComponentID @2 .. 3  v0128 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &REF_04_01_128)
+}*1 .. 1 ;; |-- end REF_04_01_128 --|
+REF_04_02_127 { ComponentAN @1 .. 30  none 
+}*1 .. 1 ;; |-- end REF_04_02_127 --|
+REF_04_03_128 { ComponentID @2 .. 3  v0128 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &REF_04_03_128)
+}*0 .. 1 ;; |-- end REF_04_03_128 --|
+REF_04_04_127 { ComponentAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end REF_04_04_127 --|
+REF_04_05_128 { ComponentID @2 .. 3  v0128 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &REF_04_05_128)
+}*0 .. 1 ;; |-- end REF_04_05_128 --|
+REF_04_06_127 { ComponentAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end REF_04_06_127 --|
+[]
+PERFORM("OTConditional2", "P", &REF_04_03_128, &REF_04_04_127)
+PERFORM("OTConditional2", "P", &REF_04_05_128, &REF_04_06_127)
+}*0 .. 1 ;; |-- end REF_04_C040 --|
+[]
+PERFORM("OTConditional2", "R", &REF_02_127, &REF_03_352)
+
+	[]
+	VAR->REF01 = DEFAULT_NULL(&REF_01_128)
+	VAR->REF02 = DEFAULT_NULL(&REF_02_127)
+	VAR->REF03 = DEFAULT_NULL(&REF_03_352)
+
+	[VAR->REF02=="" && VAR->REF03==""]
+
+	SEND_SMSG(1,"ERROR!@ S,REF02") VAR->SourceStatus = 0
+
+ 	[]
+	VAR->DKT2_TDLINE   = ""
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, "EDIx@REF")
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, "/  "     )
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, VAR->REF01)
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, ", "      )
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, VAR->REF02)
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, "  "      )
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, VAR->REF03)
+
+	ARRAY->DKT2_TDLINE = VAR->DKT2_TDLINE
+
+	:ABSENT
+	[]
+	ARRAY->DKT2_TDLINE = ""
+
+	[]
+	BREAK
+	;;
+	;;
+}*0 .. * ;; |-- end REF --|
