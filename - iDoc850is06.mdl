@@ -1,0 +1,132 @@
+;; PER Seg - Group 1 
+
+PER { Segment  "PER"
+PER_set { 
+[]
+SET_ECOUNT(VAR->OTElemCnt, 0)
+}*1 .. 1 ;; |-- end PER_set --|
+PER_01_366 { ElementID @2 .. 2  v0366 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &PER_01_366)
+}*1 .. 1 ;; |-- end PER_01_366 --|
+PER_02_93 { ElementAN @1 .. 60  none 
+}*0 .. 1 ;; |-- end PER_02_93 --|
+PER_03_365 { ElementID @2 .. 2  v0365 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &PER_03_365)
+}*0 .. 1 ;; |-- end PER_3_365 --|
+PER_04_364 { ElementAN @1 .. 80  none 
+}*0 .. 1 ;; |-- end PER_04_364 --|
+PER_05_365 { ElementID @2 .. 2  v0365 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &PER_05_365)
+}*0 .. 1 ;; |-- end PER_05_365 --|
+PER_06_364 { ElementAN @1 .. 80  none 
+}*0 .. 1 ;; |-- end PER_06_364 --|
+PER_07_365 { ElementID @2 .. 2  v0365 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &PER_07_365)
+}*0 .. 1 ;; |-- end PER_07_365 --|
+PER_08_364 { ElementAN @1 .. 80  none 
+}*0 .. 1 ;; |-- end PER_08_364 --|
+PER_09_443 { ElementAN @1 .. 20  none 
+}*0 .. 1 ;; |-- end PER_09_443 --|
+[]
+PERFORM("OTConditional2", "P", &PER_03_365, &PER_04_364)
+PERFORM("OTConditional2", "P", &PER_05_365, &PER_06_364)
+PERFORM("OTConditional2", "P", &PER_07_365, &PER_08_364)
+}*0 .. 3 ;; |-- end PER --|
+TAX { Segment  "TAX"
+TAX_set { 
+[]
+SET_ECOUNT(VAR->OTElemCnt, 0)
+}*1 .. 1 ;; |-- end TAX_set --|
+TAX_01_325 { ElementAN @1 .. 20  none 
+}*0 .. 1 ;; |-- end TAX_01_325 --|
+TAX_02_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_02_309)
+}*0 .. 1 ;; |-- end TAX_02_309 --|
+TAX_03_310 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end TAX_03_310 --|
+TAX_04_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_04_309)
+}*0 .. 1 ;; |-- end TAX_04_309 --|
+TAX_05_310 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end TAX_05_310 --|
+TAX_06_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_06_309)
+}*0 .. 1 ;; |-- end TAX_06_309 --|
+TAX_07_310 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end TAX_07_310 --|
+TAX_08_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_08_309)
+}*0 .. 1 ;; |-- end TAX_08_309 --|
+TAX_09_310 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end TAX_09_310 --|
+TAX_10_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_10_309)
+}*0 .. 1 ;; |-- end TAX_10_309 --|
+TAX_11_310 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end TAX_11_310 --|
+TAX_12_441 { ElementID @1 .. 1  v0441 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_12_441)
+}*0 .. 1 ;; |-- end TAX_12_441 --|
+TAX_13_1179 { ElementID @1 .. 1  v1179 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_13_1179)
+}*0 .. 1 ;; |-- end TAX_13_1179 --|
+[]
+PERFORM("OTConditional2", "R", &TAX_01_325, &TAX_03_310)
+PERFORM("OTConditional2", "P", &TAX_02_309, &TAX_03_310)
+PERFORM("OTConditional2", "P", &TAX_04_309, &TAX_05_310)
+PERFORM("OTConditional2", "P", &TAX_06_309, &TAX_07_310)
+PERFORM("OTConditional2", "P", &TAX_08_309, &TAX_09_310)
+PERFORM("OTConditional2", "P", &TAX_10_309, &TAX_11_310)
+}*0 .. * ;; |-- end TAX --|
+FOB { Segment  "FOB"
+FOB_set { 
+[]
+SET_ECOUNT(VAR->OTElemCnt, 0)
+}*1 .. 1 ;; |-- end FOB_set --|
+FOB_01_146 { ElementID @2 .. 2  v0146 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &FOB_01_146)
+}*1 .. 1 ;; |-- end FOB_01_146 --|
+FOB_02_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &FOB_02_309)
+}*0 .. 1 ;; |-- end FOB_02_309 --|
+FOB_03_352 { ElementAN @1 .. 80  none 
+}*0 .. 1 ;; |-- end FOB_03_352 --|
+FOB_04_334 { ElementID @2 .. 2  v0334 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &FOB_04_334)
+}*0 .. 1 ;; |-- end FOB_04_334 --|
+FOB_05_335 { ElementID @3 .. 3  v0335 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &FOB_05_335)
+}*0 .. 1 ;; |-- end FOB_05_335 --|
+FOB_06_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &FOB_06_309)
+}*0 .. 1 ;; |-- end FOB_06_309 --|
+FOB_07_352 { ElementAN @1 .. 80  none 
+}*0 .. 1 ;; |-- end FOB_07_352 --|
+FOB_08_54 { ElementID @2 .. 2  v0054 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &FOB_08_54)
+}*0 .. 1 ;; |-- end FOB_08_54 --|
+FOB_09_352 { ElementAN @1 .. 80  none 
+}*0 .. 1 ;; |-- end FOB_09_352 --|
+[]
+PERFORM("OTConditional2", "C", &FOB_03_352, &FOB_02_309)
+PERFORM("OTConditional2", "C", &FOB_04_334, &FOB_05_335)
+PERFORM("OTConditional2", "C", &FOB_07_352, &FOB_06_309)
+PERFORM("OTConditional2", "C", &FOB_08_54, &FOB_09_352)
+}*0 .. * ;; |-- end FOB --|
