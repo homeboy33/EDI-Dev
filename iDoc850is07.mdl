@@ -1,0 +1,55 @@
+;;TAX Seg - Group 1
+
+TAX { Segment  "TAX"
+TAX_set { 
+[]
+SET_ECOUNT(VAR->OTElemCnt, 0)
+}*1 .. 1 ;; |-- end TAX_set --|
+TAX_01_325 { ElementAN @1 .. 20  none 
+}*0 .. 1 ;; |-- end TAX_01_325 --|
+TAX_02_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_02_309)
+}*0 .. 1 ;; |-- end TAX_02_309 --|
+TAX_03_310 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end TAX_03_310 --|
+TAX_04_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_04_309)
+}*0 .. 1 ;; |-- end TAX_04_309 --|
+TAX_05_310 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end TAX_05_310 --|
+TAX_06_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_06_309)
+}*0 .. 1 ;; |-- end TAX_06_309 --|
+TAX_07_310 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end TAX_07_310 --|
+TAX_08_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_08_309)
+}*0 .. 1 ;; |-- end TAX_08_309 --|
+TAX_09_310 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end TAX_09_310 --|
+TAX_10_309 { ElementID @1 .. 2  v0309 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_10_309)
+}*0 .. 1 ;; |-- end TAX_10_309 --|
+TAX_11_310 { ElementAN @1 .. 30  none 
+}*0 .. 1 ;; |-- end TAX_11_310 --|
+TAX_12_441 { ElementID @1 .. 1  v0441 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_12_441)
+}*0 .. 1 ;; |-- end TAX_12_441 --|
+TAX_13_1179 { ElementID @1 .. 1  v1179 
+[] ; assign prior to ID code verification
+PERFORM("OTVerifyID", &TAX_13_1179)
+}*0 .. 1 ;; |-- end TAX_13_1179 --|
+[]
+PERFORM("OTConditional2", "R", &TAX_01_325, &TAX_03_310)
+PERFORM("OTConditional2", "P", &TAX_02_309, &TAX_03_310)
+PERFORM("OTConditional2", "P", &TAX_04_309, &TAX_05_310)
+PERFORM("OTConditional2", "P", &TAX_06_309, &TAX_07_310)
+PERFORM("OTConditional2", "P", &TAX_08_309, &TAX_09_310)
+PERFORM("OTConditional2", "P", &TAX_10_309, &TAX_11_310)
+}*0 .. * ;; |-- end TAX --|
