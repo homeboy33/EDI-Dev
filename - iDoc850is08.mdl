@@ -1,0 +1,73 @@
+;;FOB Seg - Group 1
+
+FOB { Segment  "FOB"
+FOB_set { 
+[]
+SET_ECOUNT(VAR->OTElemCnt, 0)
+	VAR->FOB01 = ""
+	VAR->FOB02 = ""
+	VAR->FOB03 = ""
+}*1 .. 1 ;; |-- end FOB_set --|
+FOB_01_146 { ElementID @2 .. 2  v0146 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &FOB_01_146)
+}*1 .. 1 ;; |-- end FOB_01_146 --|
+FOB_02_309 { ElementID @1 .. 2  v0309 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &FOB_02_309)
+}*0 .. 1 ;; |-- end FOB_02_309 --|
+FOB_03_352 { ElementAN @1 .. 80  none 
+}*0 .. 1 ;; |-- end FOB_03_352 --|
+FOB_04_334 { ElementID @2 .. 2  v0334 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &FOB_04_334)
+}*0 .. 1 ;; |-- end FOB_04_334 --|
+FOB_05_335 { ElementID @3 .. 3  v0335 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &FOB_05_335)
+}*0 .. 1 ;; |-- end FOB_05_335 --|
+FOB_06_309 { ElementID @1 .. 2  v0309 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &FOB_06_309)
+}*0 .. 1 ;; |-- end FOB_06_309 --|
+FOB_07_352 { ElementAN @1 .. 80  none 
+}*0 .. 1 ;; |-- end FOB_07_352 --|
+FOB_08_54 { ElementID @2 .. 2  v0054 
+[] ; assign after ID code verification
+PERFORM("OTVerifyID", &FOB_08_54)
+}*0 .. 1 ;; |-- end FOB_08_54 --|
+FOB_09_352 { ElementAN @1 .. 80  none 
+}*0 .. 1 ;; |-- end FOB_09_352 --|
+[]
+PERFORM("OTConditional2", "C", &FOB_03_352, &FOB_02_309)
+PERFORM("OTConditional2", "C", &FOB_04_334, &FOB_05_335)
+PERFORM("OTConditional2", "C", &FOB_07_352, &FOB_06_309)
+PERFORM("OTConditional2", "C", &FOB_08_54, &FOB_09_352)
+
+	[]
+	VAR->FOB01 = DEFAULT_NULL(&FOB_01_146)
+	VAR->FOB02 = DEFAULT_NULL(&FOB_02_309)
+	VAR->FOB03 = DEFAULT_NULL(&FOB_03_352)	
+
+	[]
+	VAR->DKT2_TDLINE   = ""
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, "EDIx@FOB")
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, "/  "     )
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, VAR->FOB01)
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, ", "      )
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, VAR->FOB02)
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, "  "      )
+	VAR->DKT2_TDLINE   = STRCATM(2,VAR->DKT2_TDLINE, VAR->FOB03)
+
+	ARRAY->DKT2_TDLINE = VAR->DKT2_TDLINE
+	ARRAY->DKT2_TDLINE = ""
+	
+	;;
+	;;
+
+	:ABSENT
+	[]
+	BREAK
+	;;
+	;;
+}*0 .. * ;; |-- end FOB --|
